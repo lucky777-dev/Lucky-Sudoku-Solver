@@ -30,6 +30,7 @@ def sudoku(win):
     cursor = [0, 0]
 
     def printGrid(): #Print the sudoku
+        win.clear()
         win.attron(curses.color_pair(5))
         textpad.rectangle(win, box[0][0], box[0][1], box[1][0], box[1][1])
         win.addstr(h//2 - 16, w//2 - 8, "Lucky Sudoku Solver")
@@ -125,7 +126,6 @@ def sudoku(win):
                     win.refresh()
                     time.sleep(1)
                     printGrid()
-                    log()
                 return False #Number already in row
             if grid[i][x] == nbr:
                 if not solving:
@@ -136,7 +136,6 @@ def sudoku(win):
                     win.refresh()
                     time.sleep(1)
                     printGrid()
-                    log()
                 return False #Number already in column
             yBox = (y//3) * 3
             xBox = (x//3) * 3
@@ -151,7 +150,6 @@ def sudoku(win):
                             win.refresh()
                             time.sleep(1)
                             printGrid()
-                            log()
                         return False #Number already in box
         return True #Possible
     
@@ -229,12 +227,11 @@ def sudoku(win):
                     if current == len(solved) - 1:
                         choice = -1
             elif key == curses.KEY_F1:
-                log()
                 waiting = False
     
     def log(message:str = "", color:int = 0):
         if message == "":
-            message = "                                              "
+            message = "                                   "
         if color > 0 and color <= 4:
             win.attron(curses.color_pair(color))
             win.addstr(h//2 + 14, w//2 - len(message)//2, message)
